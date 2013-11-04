@@ -1,3 +1,3 @@
 # clog
 ----
-An blog system
+A blog system
