@@ -1,0 +1,93 @@
+@bgcolor : #225378;
+@textcolor : #225378;
+@highlightcolor : #eb7f00;
+@cardcolor : #f3ffe2;
+@headercolor : #1695a3;
+
+@lightdelta: #111;
+
+@blockpadding: 1em;
+
+.transition(@time){
+    transition: all @time;
+    -webkit-transition: all @time;
+    -moz-transition: all @time;
+    -ms-transition: all @time;
+    -o-transition: all @time;
+}
+
+* {
+    padding : 0px;
+    margin : 0px;
+}
+
+body {
+    background-color: @bgcolor;
+    color: @textcolor;
+    font-size: 14px;
+}
+
+div {
+    position: relative;
+}
+
+.bg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+canvas#bg {
+    .bg
+}
+
+div#bgimg {
+    .bg
+}
+
+div#header {
+    height: 300px;
+    width: 100%;
+    background-color: @headercolor;
+    div#headcontent {
+        padding: 3em;
+        h1 {
+            color : @cardcolor;
+            font-size : 5em;
+       }
+    }
+}
+
+.block {
+    background-color: @cardcolor;
+    width: 100%;
+    padding: @blockpadding 0;
+    cursor: pointer;
+    opacity: 0.9;
+    .transition(0.3s)
+}
+
+.block:hover {
+    opacity: 1;
+    background-color: @cardcolor + @lightdelta;
+}
+
+.blkcontent {
+    margin: 0 @blockpadding;
+}
+
+#content {
+    width: 900px;
+    margin: auto;
+}
+
+.column {
+    width: 33.33333%;
+    top: 0px;
+    float: left;
+}
+
+.column:first-child {
+    position: relative;
+}

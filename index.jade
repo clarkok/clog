@@ -1,0 +1,35 @@
+doctype 5
+html
+    head
+        meta(charset="utf-8")
+        title Clog
+        script(type="text/javascript" src="js/global.js")
+        script(type="text/javascript" src="js/events.js")
+        link(rel="stylesheet" href="fonts.css")
+        link(rel="stylesheet" href="style.css")
+    body
+        canvas#bg <div id="bgimg"></div>
+        #header
+            #headcontent
+                h1 Clog
+        #content
+            - for (var i=0; i<3; i++)
+                .column
+                    - for (var j=0; j<3; j++)
+                        .block
+                            .blkcontent
+                                h2 test
+                                p.author author
+                                p.date YYYY-MM-DD
+                                p.
+                                    asdfghjklkjhgfdsasdfghjkjhgfdsa
+                                    asdfasdfadsfqwerqewrqwer
+                                    zxcvcxvzxcvser2reaqfdsv
+        #timeline
+
+        script(type="text/javascript").
+            function onclick(){
+                alert('asdfad');
+            }
+            Events.add(document.getElementById('header'), 'click', onclick);
+            Events.dispatch(document.getElementById('header'), 'click');
