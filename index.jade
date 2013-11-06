@@ -28,8 +28,13 @@ html
         #timeline
 
         script(type="text/javascript").
-            function onclick(){
-                alert('asdfad');
+            events = new Events;
+            function click(){
+                alert('3');
             }
-            Events.add(document.getElementById('header'), 'click', onclick);
-            Events.dispatch(document.getElementById('header'), 'click');
+            events.add(document.getElementById('header'), 'click', function(){ alert('1');});
+            events.add(document.getElementById('header'), 'click', function(){ alert('2');});
+            events.add(document.getElementById('header'), 'click', click);
+            events.del(document.getElementById('header'), 'click', click);
+            events.add(document.getElementById('header'), 'click', function(){ alert('4');});
+            events.add(document.getElementById('header'), 'click', function(){ alert('5');});
