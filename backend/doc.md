@@ -21,6 +21,7 @@ backend/index.php/ajax/category/$category=-1/$page=1/$app=10
     |- cid category编号
     |- category category名
     |- page 第几页
+    |- app 每页几条
     |- posts[] 文章数组
         |- id publish title author aid date category cid content 意义见上，其中content截止到<!-- MORE -->标签
 

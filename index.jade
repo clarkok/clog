@@ -5,36 +5,17 @@ html
         title Clog
         script(type="text/javascript" src="js/global.js")
         script(type="text/javascript" src="js/events.js")
+        script(type="text/javascript" src="js/control.js")
+        script(type="text/javascript" src="js/data.js")
+        script(type="text/javascript" src="js/router.js")
+        script(type="text/javascript" src="js/animate.js")
+        script(type="text/javascript" src="js/view.js")
         link(rel="stylesheet" href="fonts.css")
         link(rel="stylesheet" href="style.css")
     body
         canvas#bg <div id="bgimg"></div>
-        #header
-            #headcontent
-                h1 Clog
+        #top
         #content
-            - for (var i=0; i<3; i++)
-                .column
-                    - for (var j=0; j<3; j++)
-                        .block
-                            .blkcontent
-                                h2 test
-                                p.author author
-                                p.date YYYY-MM-DD
-                                p.
-                                    asdfghjklkjhgfdsasdfghjkjhgfdsa
-                                    asdfasdfadsfqwerqewrqwer
-                                    zxcvcxvzxcvser2reaqfdsv
+            .contentcontenter#category
+            .contentcontenter#article
         #timeline
-
-        script(type="text/javascript").
-            events = new Events;
-            function click(){
-                alert('3');
-            }
-            events.add(document.getElementById('header'), 'click', function(){ alert('1');});
-            events.add(document.getElementById('header'), 'click', function(){ alert('2');});
-            events.add(document.getElementById('header'), 'click', click);
-            events.del(document.getElementById('header'), 'click', click);
-            events.add(document.getElementById('header'), 'click', function(){ alert('4');});
-            events.add(document.getElementById('header'), 'click', function(){ alert('5');});

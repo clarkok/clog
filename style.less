@@ -8,12 +8,12 @@
 
 @blockpadding: 1em;
 
-.transition(@time){
-    transition: all @time;
-    -webkit-transition: all @time;
-    -moz-transition: all @time;
-    -ms-transition: all @time;
-    -o-transition: all @time;
+.transition(@item, @time){
+    transition: @item @time;
+    -webkit-transition: @item @time;
+    -moz-transition: @item @time;
+    -ms-transition: @item @time;
+    -o-transition: @item @time;
 }
 
 * {
@@ -59,35 +59,57 @@ div#header {
     }
 }
 
-.block {
+.cardready {
+    .transition(opacity, 0.3s);
+    .transition(top, 1s);
+}
+
+.hide {
+    display: none;
+}
+
+.card {
     background-color: @cardcolor;
     width: 100%;
     padding: @blockpadding 0;
     cursor: pointer;
     opacity: 0.9;
-    .transition(0.3s)
 }
 
-.block:hover {
+.card:hover {
     opacity: 1;
     background-color: @cardcolor + @lightdelta;
 }
 
-.blkcontent {
+.cardcontent {
     margin: 0 @blockpadding;
 }
 
+.contentcontenter {
+    display: none;
+}
+
 #content {
-    width: 900px;
+    width: 70%;
     margin: auto;
 }
 
 .column {
-    width: 33.33333%;
     top: 0px;
     float: left;
 }
 
 .column:first-child {
     position: relative;
+}
+
+a{
+    color: @textcolor;
+    text-decoration: none;
+}
+
+a:visited {
+    .card {
+        background-color: @cardcolor - @lightdelta;
+    }
 }
