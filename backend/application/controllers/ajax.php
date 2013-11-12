@@ -68,4 +68,49 @@ class Ajax extends CI_Controller {
             ->comment_by_article($aid, ($page-1)*$cpp, $cpp);
         $this->load->view('ajax/comment.php', $data);
     }
+
+/*
+    public function users($action){
+        $this->load->model('User_model');
+        if ($action == 'login') {
+            if (!isset($_POST['_email'])) {
+                $data['data'] = array(
+                    'errno' => 1,
+                    'errmsg' => 'Invalid Email'
+                );
+                $this->load->view('ajax/error.php', $data);
+                return;
+            }
+            if (!isset($_POST['_passhash'])) {
+                $data['data'] = array(
+                    'errno' => 1,
+                    'errmsg' => 'Invalid Pass'
+                );
+                $this->load->view('ajax/error.php', $data);
+                return;
+            }
+            $res = $this->User_model->addUser(htmlspecialchars($_POST['_email']), htmlspecialchars($_PSOT['_passhash']));
+            $data['data'] = $res;
+            $this->load->view('ajax/user.php', $data);
+        }
+        elseif ($action == 'signup') {
+            if (!isset($_POST['_email'])) {
+                $data['data'] = array(
+                    'errno' => 1,
+                    'errmsg' => 'Invalid Email'
+                );
+                $this->load->view('ajax/error.php', $data);
+                return;
+            }
+            if (!isset($_POST['_nickname'])) {
+                $data['data'] = array(
+                    'errno' => 1,
+                    'errmsg' => 'Invalid Nickname'
+                );
+                $this->load->view('ajax/error.php', $data);
+                return;
+            }
+        }
+    }
+ */
 }

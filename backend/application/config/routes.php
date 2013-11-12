@@ -38,6 +38,13 @@
 |
 */
 
+$route['login'] = 'admin/login';
+$route['admin/edit'] = 'admin/edit';
+$route['admin/edit/(:num)'] = 'admin/edit/$1';
+$route['admin/action'] = 'admin/action';
+$route['admin/(:any)/(:any)'] = 'admin/index/$1/$2';
+$route['admin/(:any)'] = 'admin/index/$1';
+$route['admin'] = 'admin/index';
 $route['default_controller'] = "welcome";
 $route['404_override'] = '';
 

@@ -53,6 +53,17 @@ class Category_model extends CI_Model {
         $query = $this->db->query(
             "SELECT * FROM category"
         );
-        return $query->result();
+        $res = $query->result();
+        $query = $this->db->query(
+            "SELECT id FROM posts WHERE publish=1"
+        );
+        $all_cate = (object)array(
+            'id' => -1,
+            'name' => 'all',
+            'description' => 'All Posts',
+            'posts' => $query->num_rows()
+        );
+        array_unshift($res, $all_cate);
+        return $res;
     }
 }

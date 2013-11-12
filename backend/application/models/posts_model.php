@@ -15,10 +15,19 @@ class Posts_model extends CI_Model {
      */
     private function summary($content){
         $reg = '#.*?<!--\s*MORE\s*-->#i';
-        if (preg_match($reg, $content, $matches))
-            return $matches[0];
-        else
-            return $content;
+        if (preg_match($reg, $content, $matches)) {
+            $content = $matches[0];
+        }
+        $linkreg = '#<(/|)a.*?>#';
+        $content = preg_replace($linkreg, '', $content);
+        $scriptreg = '#<script.*?</script>#';
+        $content = preg_replace($scriptreg, '', $content);
+        $divreg = '#<(/|)div.*?>#';
+        $content = preg_replace($divreg, '', $content);
+        if (strlen($content) >= 200)
+            if ($pos = strpos($content, '</p>', 200))
+                $content = substr($content, 0, $pos).'<p class="more">Read More</p>';
+        return $content;
     }
 
     /*
@@ -44,12 +53,17 @@ class Posts_model extends CI_Model {
      * $start: the start of the list
      * $max: max length of the list
      */
-    public function category($cid, $start, $max){
+    public function category($cid, $start, $max, $publish=true){
         $this->db->reconnect();
         if ($cid >= 0){
-            $query = $this->db->query(
-                "SELECT * FROM posts WHERE cid="
-                .$this->db->escape($cid)." and publish=1");
+            if ($publish)
+                $query = $this->db->query(
+                    "SELECT * FROM posts WHERE cid="
+                    .$this->db->escape($cid)." and publish=1");
+            else
+                $query = $this->db->query(
+                    "SELECT * FROM posts WHRER cid="
+                    .$this->db->escape($cid));
         }
         else {
             $query = $this->db->query(

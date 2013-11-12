@@ -15,7 +15,6 @@ Router = (function(){
     Router.prototype.dispatch = function(){
         var path = window.location.hash.toString();
         path += '$';
-        console.debug(path);
         for (var i=0; i<this.rules.length; i++){
             if (-1 == path.search(new RegExp('^'+
                     this.rules[i].rule.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')    // escape the RegExp chars
@@ -29,7 +28,7 @@ Router = (function(){
             args = {};
             for (var j=0; j<vairs.length; j++){
                 tmppath = tmppath.slice(substr[j].length);
-                args[vairs[j].slice(1)] = tmppath.slice(0, tmppath.search(substr[j+1]));
+                args[vairs[j].slice(1)] = tmppath.slice(0, tmppath.search(substr[j+1].replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')));
             }
             this.rules[i].handler.call(this.rules[i].handler, args);
             break;

@@ -6,5 +6,5 @@ window.onload = function(){
     data = new Data(events);
     animate = new Animate(events);
     view = new View(events);
-    control = new Control(events, data, view, router);
+    control = new Control(events, data, view, router, animate);
 };

@@ -1,8 +1,8 @@
-@bgcolor : #225378;
-@textcolor : #225378;
-@highlightcolor : #eb7f00;
-@cardcolor : #f3ffe2;
-@headercolor : #1695a3;
+@bgcolor : black;
+@textcolor : black;
+@highlightcolor : #000088;
+@cardcolor : white;
+@headercolor : #000099;
 
 @lightdelta: #111;
 
@@ -46,26 +46,40 @@ div#bgimg {
     .bg
 }
 
-div#header {
-    height: 300px;
+#top {
+    position: fixed;
     width: 100%;
-    background-color: @headercolor;
-    div#headcontent {
-        padding: 3em;
-        h1 {
-            color : @cardcolor;
-            font-size : 5em;
-       }
+    height: 30px;
+    border-bottom: 1px solid @cardcolor;
+    top: 0;
+    #topcontent {
+        height: 100%;
     }
 }
 
-.cardready {
-    .transition(opacity, 0.3s);
-    .transition(top, 1s);
-}
-
-.hide {
-    display: none;
+ul#cates {
+    list-style: none;
+    height: 100%;
+    li {
+        float: left;
+        height: 100%;
+        width: 5em;
+        color: @cardcolor;
+        text-align: center;
+    }
+    li:hover, li.selected {
+        background-color: @cardcolor;
+        color: @bgcolor;
+    }
+    li.selected {
+        width: 7em;
+    }
+    a {
+        color: @cardcolor;
+        font-size: 16px;
+        line-height: 30px;
+        text-transform: capitalize;
+    }
 }
 
 .card {
@@ -83,6 +97,19 @@ div#header {
 
 .cardcontent {
     margin: 0 @blockpadding;
+    font-size: 12px;
+    img {
+        width: auto;
+        height: auto;
+    }
+    h2:first-child {
+        font-size: 1.5em;
+        font-weight: 900;
+    }
+    h1, h2, h3, h4, h5, h6 {
+        font-size: 1.2em;
+        font-weight: 700;
+    }
 }
 
 .contentcontenter {
@@ -92,6 +119,53 @@ div#header {
 #content {
     width: 70%;
     margin: auto;
+}
+
+#articlebox {
+    position: fixed;
+    width: 70%;
+    background-color: @cardcolor;
+    height: 100%;
+    left: 0;
+    overflow-y: auto;
+}
+
+#article {
+    padding: 3em;
+    word-wrap: word-break;
+    word-break: normal;
+    width: auto;
+    font-size: 16px;
+    p {
+        width: auto;
+    }
+
+    h1:first-child {
+        margin-bottom: 0.5em;
+        color: @highlightcolor;
+        font-size: 3em;
+    }
+
+    p.metainfo {
+        text-align: right;
+    }
+}
+
+#commentbox {
+    position: fixed;
+    width: 30px;
+    background-color: @bgcolor;
+    height: 100%;
+    width: 30%;
+    right: 0px;
+    overflow: auto;
+    color: @textcolor;
+    h2 {
+        color: @cardcolor;
+        font-size: 3em;
+        line-height: 1.3em;
+        padding: 0.8em;
+    }
 }
 
 .column {

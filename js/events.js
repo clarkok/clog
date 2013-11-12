@@ -3,7 +3,7 @@ Events = (function(){
     }
     Events.prototype._callback = function (_element, _event, _e) {
         for (var i=0; i<_element._callbacks[_event].length; i++){
-            _element._callbacks[_event][i].call(_e);
+            _element._callbacks[_event][i].call(_element._callbacks[_event][i], _e);
         }
     };
     Events.prototype.add = function (_element, _event, _callback){

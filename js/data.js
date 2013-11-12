@@ -2,8 +2,9 @@ Data = (function(){
     function Data(_evt){
         this.events = _evt;
         this.pattens = {
-            'article_by_id': 'backend/index.php/ajax/article/:aid:',
-            'category_by_id': 'backend/index.php/ajax/category/:cid:/:page:'
+            'article_by_id': 'backend/ajax/article/:aid:',
+            'category_by_id': 'backend/ajax/category/:cid:/:page:',
+            'categories': 'backend/ajax/categories'
         };
     }
     Data.prototype._ajax = function (_a) {
@@ -46,10 +47,18 @@ Data = (function(){
         this._ajax({
             method: 'GET',
             url: this.pattens.category_by_id.replace(':cid:', ''+_cid).replace(':page:', ''+_page),
-            success: function(_data){
-                _callback.call(_callback, _data);
-            },
+            success: _callback,
             error: function(xhr, status){
+                _callback.call(_callback, null, status);
+            }
+        });
+    };
+    Data.prototype.categories = function (_callback) {
+        this._ajax({
+            method: 'GET',
+            url: this.pattens.categories,
+            success: _callback,
+            error: function (xhr, status){
                 _callback.call(_callback, null, status);
             }
         });
