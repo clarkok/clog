@@ -25,7 +25,7 @@ class Admin extends CI_Controller {
         $data['category_list'] = $this->Category_model->category_list();
         $data['category'] = $this->Category_model->category_by_id($cid);
         $data['cid'] = $cid;
-        $data['posts_list'] = $this->Posts_model->category($cid, ($page-1)*$app, $app);
+        $data['posts_list'] = $this->Posts_model->category($cid, ($page-1)*$app, $app, false);
         $data['user'] = $user;
 
         $this->load->view('admin/header.php', $data);
@@ -59,14 +59,37 @@ class Admin extends CI_Controller {
     }
 
     private function publish($arts){
+        foreach($arts as $aid) {
+            $this->Posts_model->publish($aid);
+        }
     }
 
     private function unpublish($arts){
+        foreach($arts as $aid) {
+            $this->Posts_model->unpublish($aid);
+        }
     }
 
     public function action(){
         if (!($user = $this->verify())) return;
-        
+        $this->load->model('Posts_model');
+        foreach ($_POST['ck'] as $key => $value){
+            echo "$key=>$value<br />";
+        }
+        if (!array_key_exists('action', $_POST))
+            die('No Action Field');
+        if (array_key_exists('ck', $_POST)){
+            $arts = array();
+            foreach($_POST['ck'] as $key => $value){
+                array_push($arts, $key);
+            }
+            if ($_POST['action'] == 'publish'){
+                $this->publish($arts);
+            }
+            else if($_POST['action'] == 'unpublish') {
+                $this->unpublish($arts);
+            }
+        }
     }
 
     public function edit($id = 0){

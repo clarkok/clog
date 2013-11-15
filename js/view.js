@@ -1,5 +1,5 @@
 View = (function(){
-    function View(_evt){
+    function View(_evt, _clist){
         this.events = _evt;
         this._render_patten = /:\w+:/g;
         this._window_width = window.innerWidth;
@@ -7,8 +7,8 @@ View = (function(){
         this._columns_nr = Math.floor((this._window_width * 0.7) / 200);
         this._templete = {
             column : '<div class="column" id=":id:" style="width::width:;top::top:"></div>',
-            card : '<a href=":link:"><div class="card" id="card:id:"><div class="cardcontent"><h2>:title:</h2>:content:</div></div></a>',
-            article : '<h1>:title:</h1><p class="metainfo">:author: | :date:</p><hr>:content:<hr><hr><p>Back</p><p>Last Post</p><p>Next Post</p>',
+            card : '<a href=":link:"><div class="card invisibile" id="card:id:"><div class="cardcontent"><h2>:title:</h2>:content:</div></div></a>',
+            article : '<h1>:title:</h1><p class="metainfo">:author: | :date:</p><hr>:content:<hr><hr><p class="back" onclick="history.go(-1);">Back</p><p>Last Post</p><p>Next Post</p>',
             top : '<ul id="cates">:cates:</ul>',
             category : '<a href=":link:"><li id="cate:id:" class="topcategory">:name:</li></a>'
         };
@@ -22,6 +22,8 @@ View = (function(){
             this.columns[i].id = 'col'+i;
         }
     }
+    View.prototype.col = [];
+    View.prototype.top = [];
     View.prototype.displayTop = function (_cates, _select){
         var _this = this;
         var listCategory = function (_cates){
@@ -46,12 +48,20 @@ View = (function(){
                     this.columnBottom(min))
                     min = j;
             }
+            var top = this.columnBottom(min);
             this.insert(min, _page.posts[i]);
+            this.col['card'+_page.posts[i].id] = min;
+            this.top['card'+_page.posts[i].id] = top;
             this.events.dispatch(this._('card'+_page.posts[i].id),
                                 'cardReady');
         }
     };
+    View.prototype.wrap = function (s){
+        return (s.replace(/<img.*?((\/|)>|.*<\/img>)/g, '<div class="imgOuter">$&</div>'));
+    };
     View.prototype.insert = function(_col, _art){
+        console.debug(_art);
+        _art.content = this.wrap(_art.content);
         this._(this.columns[_col].id).innerHTML += this._render(this._templete.card, _art);
     };
     View.prototype._render = function(_templete, _content){

@@ -29,7 +29,7 @@ Events = (function(){
         if (!_element._callbacks[_event]) return;
         for (var i=0; i<_element._callbacks[_event].length; i++){
             if (_element._callbacks[_event][i] == _callback){
-                return _element._callbacks[_event].splice(i, 1);
+                _element._callbacks[_event].splice(i, 1);
             }
         }
     };
@@ -44,7 +44,8 @@ Events = (function(){
                 _element.fireEvent('on'+_event);
             }
         } catch(e){
-            if (console) console.debug(e);
+            if (console.debug) console.debug(e);
+            else console.log(e);
         }
     };
     return Events;

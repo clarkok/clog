@@ -24,8 +24,8 @@ class Posts_model extends CI_Model {
         $content = preg_replace($scriptreg, '', $content);
         $divreg = '#<(/|)div.*?>#';
         $content = preg_replace($divreg, '', $content);
-        if (strlen($content) >= 200)
-            if ($pos = strpos($content, '</p>', 200))
+        if (strlen($content) >= 100)
+            if ($pos = strpos($content, '</p>', 100))
                 $content = substr($content, 0, $pos).'<p class="more">Read More</p>';
         return $content;
     }
@@ -66,13 +66,30 @@ class Posts_model extends CI_Model {
                     .$this->db->escape($cid));
         }
         else {
-            $query = $this->db->query(
-                "SELECT * FROM posts WHERE publish=1");
+            if ($publish)
+                $query = $this->db->query(
+                    "SELECT * FROM posts WHERE publish=1");
+            else
+                $query = $this->db->query(
+                    "SELECT * FROM posts");
         }
-        $res = array_slice($query->result(), $start, $max);
+        $res = array_reverse($query->result());
+        $res = array_slice($res, $start, $max);
         foreach($res as &$art){
             $art->content = $this->summary($art->content);
         }
         return $res;
+    }
+    public function publish($aid){
+        $this->db->reconnect();
+        $this->db->query('UPDATE posts SET publish=1 WHERE id='.$this->db->escape($aid));
+    }
+    public function unpublish($aid){
+        $this->db->reconnect();
+        $this->db->query('UPDATE posts SET publish=0 WHERE id='.$this->db->escape($aid));
+    }
+    public function add($art, $publish){
+        $this->db->reconnect();
+        $this->db->query('INSERT INTO posts (publish, title, author, auid, date, category, cid, content) VALUES ');
     }
 }
